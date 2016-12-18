@@ -13,16 +13,14 @@ fn main() {
         let f = File::open(tmp_filename).unwrap();
         let f = BufReader::new(f);
 
-        let tmp_f = File::create("tmp.txt").unwrap();
+        let tmp_f = None;
         let mut new_f = BufWriter::new(tmp_f);
 
         for line2 in f.lines() {
             let curr_line = line2.unwrap_or("".to_string());
 
-            println!("{}", curr_line.to_string());
-
             if curr_line.len() > 6 {
-                if curr_line[..6] == "OBJECT".to_string() {
+                if &curr_line[..6] == "OBJECT" {
                     new_name = curr_line.to_string();
                     new_name = new_name.replace("/", "_");
                     new_f.flush();
